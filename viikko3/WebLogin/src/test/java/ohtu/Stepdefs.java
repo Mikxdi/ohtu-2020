@@ -53,7 +53,26 @@ public class Stepdefs {
     public void systemWillRespond(String pageContent) throws Throwable {
         assertTrue(driver.getPageSource().contains(pageContent));
     }
-    
+
+    @When("a valid username {string} and short password {string} and matching password confirmation are entered")
+    public void aValidUsernameAndShortPasswordAndMatchingPasswordConfirmationAreEntered(String username, String password) {
+        registerWith(username, password, password);
+    }
+
+    @When(" a valid username {string} and password {string} and non-matching password {string} confirmation are entered")
+    public void aValidUsernameAndPasswordAndNonMatchingPasswordConfirmationAreEntered(String username, String password, String passwordConfirmation) {
+        registerWith(username, password, passwordConfirmation);
+    }
+
+    @When("a short username {string} and password {string} and matching password confirmation are entered")
+    public void aShortUsernameAndPasswordAndMatchingPasswordConfirmationAreEntered(String username, String password) {
+        registerWith(username, password, password);
+    }
+
+    @When("nonexistent username {string} and password {string} are given")
+    public void nonexistenUsernameAndPasswordAreGiven(String username, String password) {
+        logInWith(username, password);
+    }
     @After
     public void tearDown(){
         driver.quit();
